@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  Query,
   Post,
   Body,
   Put,
@@ -14,7 +15,7 @@ import {
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 import { MongoIdPipe } from '../../common/mongo-id.pipe';
-import { CreateProductDto, UpdateProductDto } from '../dtos/products.dtos';
+import { CreateProductDto, UpdateProductDto, FilterProductsDto } from '../dtos/products.dtos';
 
 import { ProductsService } from '../services/products.service';
 
@@ -25,8 +26,8 @@ export class ProductsController {
 
   @Get()
   @ApiOperation({ summary: 'List products' })
-  getProducts() {
-    return this.productsService.findAll();
+  getProducts(@Query() params: FilterProductsDto) {
+    return this.productsService.findAll(params);
   }
 
   @Get('filter')
