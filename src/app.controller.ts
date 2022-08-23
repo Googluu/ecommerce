@@ -20,4 +20,9 @@ export class AppController {
   hi() {
     return 'con /sass/';
   }
+
+  @Get('/tasks/')
+  getTasks() {
+    return this.appService.getTask();
+  }
 }
