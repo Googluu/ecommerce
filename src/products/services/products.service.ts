@@ -1,11 +1,15 @@
 /* eslint-disable prettier/prettier */
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Inject } from '@nestjs/common';
+import { Db } from 'mongodb';
 
 import { CreateProductDto, UpdateProductDto } from '../dtos/products.dtos';
 import { Product } from '../entities/product-entity';
 
 @Injectable()
 export class ProductsService {
+  constructor( @Inject('MONGO') private database: Db,) {}
+
+
   private counterId = 1;
   private products: Product[] = [
     {
@@ -20,6 +24,11 @@ export class ProductsService {
 
   findAll() {
     return this.products;
+  }
+
+  findTask() {
+    const tasks = this.database.collection('tasks');
+    return tasks.find().toArray();
   }
 
   findOne(id: number) {
