@@ -34,6 +34,11 @@ export class ProductsController {
     return this.productsService.findAll();
   }
 
+  @Get('/tasks')
+  getTasks() {
+    return this.productsService.findTask();
+  }
+
   @Get('filter')
   getFilter() {
     return {
