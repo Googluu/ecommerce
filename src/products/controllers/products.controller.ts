@@ -34,11 +34,6 @@ export class ProductsController {
     return this.productsService.findAll();
   }
 
-  @Get('/tasks')
-  getTasks() {
-    return this.productsService.findTask();
-  }
-
   @Get('filter')
   getFilter() {
     return {
@@ -48,22 +43,22 @@ export class ProductsController {
 
   @Get(':id')
   @HttpCode(HttpStatus.ACCEPTED)
-  getOne(@Param('id', ParseInitPipe) id: number) {
+  getOne(@Param('id') id: string) {
     return this.productsService.findOne(id);
   }
 
-  @Post()
-  create(@Body() payload: CreateProductDto) {
-    return this.productsService.create(payload);
-  }
+  // @Post()
+  // create(@Body() payload: CreateProductDto) {
+  //   return this.productsService.create(payload);
+  // }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() payload: UpdateProductDto) {
-    return this.productsService.update(+id, payload);
-  }
+  // @Put(':id')
+  // update(@Param('id') id: string, @Body() payload: UpdateProductDto) {
+  //   return this.productsService.update(+id, payload);
+  // }
 
-  @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.productsService.remove(+id);
-  }
+  // @Delete(':id')
+  // delete(@Param('id') id: string) {
+  //   return this.productsService.remove(+id);
+  // }
 }
