@@ -1,5 +1,8 @@
 import { Module, Global } from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
 import { MongoClient } from 'mongodb';
+
+import config from '../config';
 
 const API_KEY = '1234434';
 const API_KEY_PROD = 'PROD12312';
@@ -13,13 +16,15 @@ const API_KEY_PROD = 'PROD12312';
     },
     {
       provide: 'MONGO',
-      useFactory: async () => {
-        const uri = 'mongodb://localhost:27017/';
+      useFactory: async (configService: ConfigType<typeof config>) => {
+        const { connection, host, port } = configService.mongo;
+        const uri = `${connection}://${host}:${port}/`;
         const client = new MongoClient(uri);
         await client.connect();
         const database = client.db('ecommerce');
         return database;
       },
+      inject: [config.KEY],
     },
   ],
   exports: ['API_KEY', 'MONGO'],
