@@ -18,6 +18,8 @@ export class Product extends Document {
 
   @Prop()
   image: string;
+
+  timestamps = true
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
