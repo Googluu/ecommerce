@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, FilterQuery } from 'mongoose';
 
 import { CreateProductDto, UpdateProductDto, FilterProductsDto } from '../dtos/products.dtos';
 import { Product } from '../entities/product-entity';
@@ -14,8 +14,14 @@ export class ProductsService {
 
   findAll(params?: FilterProductsDto) {
     if (params) {
+      const filters: FilterQuery<Product> = {};
       const { limit, offset } = params;
-      return this.productModel.find()
+      const { minPrice, maxPrice } = params;
+      if (minPrice && maxPrice) {
+        filters.price = { $gte: minPrice, $lte: maxPrice };
+        // gte = mayor o igual Y lte = menor o igual
+      }
+      return this.productModel.find(filters)
       .skip(offset)
       .limit(limit)
       .exec();
