@@ -21,12 +21,15 @@ export class ProductsService {
         filters.price = { $gte: minPrice, $lte: maxPrice };
         // gte = mayor o igual Y lte = menor o igual
       }
-      return this.productModel.find(filters)
+      return this.productModel
+      .find(filters)
+      .populate('brand')
       .skip(offset)
       .limit(limit)
       .exec();
     }
-    return this.productModel.find().exec();
+    // con populate se hace un join de products y brands para traer el contenido de todos
+    return this.productModel.find().populate('brand').exec();
   }
 
   async findOne(id: string) {

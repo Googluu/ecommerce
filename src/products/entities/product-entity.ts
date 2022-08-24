@@ -1,6 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
+
+import { Brand } from './brand.entity'; // con la que se va a ser la relacion uno a uno referenciadas
 
 @Schema()
 export class Product extends Document {
@@ -27,6 +29,10 @@ export class Product extends Document {
     }),
   )
   category: Record<string, any>
+
+  // realcion uno a uno referenciadas de products y brands
+  @Prop({ type: Types.ObjectId, ref: Brand.name })
+  brand: Brand | Types.ObjectId;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
