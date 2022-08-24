@@ -9,6 +9,8 @@ import { BrandsController } from './controllers/brands.controller';
 import { CategoriesService } from './services/categories.service';
 import { BrandsService } from './services/brands.service';
 import { Product, ProductSchema } from './entities/product-entity';
+import { Category, CategorySchema } from './entities/category.entity';
+import { Brand, BrandSchema } from './entities/brand.entity';
 
 @Module({
   imports: [
@@ -16,6 +18,14 @@ import { Product, ProductSchema } from './entities/product-entity';
       {
         name: Product.name,
         schema: ProductSchema,
+      },
+      {
+        name: Category.name,
+        schema: CategorySchema,
+      },
+      {
+        name: Brand.name,
+        schema: BrandSchema,
       },
     ]),
   ],
