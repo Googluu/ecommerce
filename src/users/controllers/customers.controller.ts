@@ -2,7 +2,6 @@ import {
   Controller,
   Get,
   Param,
-  ParseIntPipe,
   Post,
   Body,
   Put,
@@ -24,7 +23,7 @@ export class CustomersController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
+  findOne(@Param('id') id: string) {
     return this.customersService.findOne(id);
   }
 
@@ -34,15 +33,12 @@ export class CustomersController {
   }
 
   @Put(':id')
-  Update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() payload: UpdateCustomerDto,
-  ) {
+  Update(@Param('id') id: string, @Body() payload: UpdateCustomerDto) {
     return this.customersService.update(id, payload);
   }
 
   @Delete(':id')
-  delete(@Param('id', ParseIntPipe) id: number) {
-    return this.customersService.remove(+id);
+  delete(@Param('id') id: string) {
+    return this.customersService.remove(id);
   }
 }
