@@ -22,3 +22,11 @@ export class CreateOrderDto {
 export class UpdateOrderDto extends PartialType(
   OmitType(CreateOrderDto, ['products'])
 ) {}
+
+//add productos a las ordenes
+export class addProductsToOrderDto {
+  @ApiProperty()
+  @IsArray()
+  @IsNotEmpty()
+  readonly productsIds: string[];
+}

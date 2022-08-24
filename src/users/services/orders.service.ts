@@ -44,4 +44,21 @@ export class OrdersService {
   remove(id: string) {
     return this.orderModel.findByIdAndDelete(id);
   }
+  // remover un producto individualmente de la array de products
+  async removeProduct(id: string, productId: string) {
+    const order = await this.orderModel.findById(id);
+    order.products.pull(productId);
+    return order.save();
+  }
+
+  async addProducts(id: string, productIds: string[]) {
+    const order = await this.orderModel.findById(id);
+    // productIds.forEach((pId) => order.products.push(pId));
+    if (order) {
+      productIds.forEach((elemento) => {
+        order.products.addToSet(elemento);
+      });
+      return order.save();
+    }
+  }
 }
