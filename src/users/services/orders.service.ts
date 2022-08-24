@@ -10,7 +10,11 @@ export class OrdersService {
   constructor(@InjectModel(Order.name) private orderModel: Model<Order>) {}
 
   async findAll() {
-    const orders = await this.orderModel.find().exec();
+    const orders = await this.orderModel
+      .find()
+      .populate('customer')
+      .populate('products')
+      .exec();
     return orders;
   }
 

@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { IsMongoId, IsNotEmpty, IsDate, IsArray } from 'class-validator';
-import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { ApiProperty, PartialType, OmitType } from '@nestjs/swagger';
 
 export class CreateOrderDto {
   @ApiProperty()
@@ -18,6 +18,7 @@ export class CreateOrderDto {
   @IsNotEmpty()
   readonly products: string[];
 }
-
-
-export class UpdateOrderDto extends PartialType(CreateOrderDto) {}
+// se omiten los productos
+export class UpdateOrderDto extends PartialType(
+  OmitType(CreateOrderDto, ['products'])
+) {}
