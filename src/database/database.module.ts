@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Module, Global } from '@nestjs/common';
 
 const API_KEY = '1234434';
