@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Module, Global } from '@nestjs/common';
 import { MongoClient } from 'mongodb';
 
