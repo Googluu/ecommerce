@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, Inject } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { Db } from 'mongodb';
