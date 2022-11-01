@@ -2,7 +2,6 @@ import {
   Controller,
   Get,
   Param,
-  ParseIntPipe,
   Post,
   Body,
   Put,
@@ -23,13 +22,18 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @Get('tasks')
+  tasks() {
+    return this.usersService.getTasks();
+  }
+
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
+  findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
 
   @Get(':id/orders')
-  getOrders(@Param('id', ParseIntPipe) id: number) {
+  getOrders(@Param('id') id: string) {
     return this.usersService.getOrderByUser(id);
   }
 
@@ -39,15 +43,12 @@ export class UsersController {
   }
 
   @Put(':id')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() payload: UpdateUserDto,
-  ) {
+  update(@Param('id') id: string, @Body() payload: UpdateUserDto) {
     return this.usersService.update(id, payload);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: number) {
-    return this.usersService.remove(+id);
+  delete(@Param('id') id: string) {
+    return this.usersService.remove(id);
   }
 }
